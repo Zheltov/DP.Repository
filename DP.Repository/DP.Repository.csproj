@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\Common\DataAccessDbStandard.cs" />
     <Compile Include="DataAccess\Common\DataAccessDb.cs" />
     <Compile Include="DataAccess\Common\DataAccessTransactionDb.cs" />
     <Compile Include="DataAccess\Common\DataAccessConnectionDb.cs" />

@@ -40,7 +40,7 @@ namespace DP.Repository.DataAccess.Common
         {
             Connection = connection;
             State = TransactionState.Opened;
-           
+
         }
         /// <summary>
         /// Constructor
@@ -51,6 +51,10 @@ namespace DP.Repository.DataAccess.Common
             : this( connection )
         {
             ParentTransaction = parentTransaction;
+        }
+        ~DataAccessTransactionDb()
+        {
+            Dispose( false );
         }
 
         public void Commit()
@@ -78,6 +82,13 @@ namespace DP.Repository.DataAccess.Common
         /// </summary>
         public void Dispose()
         {
+            Dispose( true );
+            GC.SuppressFinalize( this );
+        }
+
+        void Dispose( bool disposing )
+        {
+            // unmanaged
             if ( State == TransactionState.Opened )
                 Rollback();
         }

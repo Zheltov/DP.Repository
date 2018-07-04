@@ -38,7 +38,7 @@ namespace DP.Repository
         {
             Connection = connection;
             dataAccessTransactions = new List<IDataAccessTransaction>();
-            
+
             try
             {
                 // Start transactions for all DataAccessConnections
@@ -58,6 +58,10 @@ namespace DP.Repository
 
                 throw;
             }
+        }
+        ~Transaction()
+        {
+            Dispose( false );
         }
 
         /// <summary>
@@ -138,6 +142,11 @@ namespace DP.Repository
         /// Implementation IDispose interface
         /// </summary>
         public void Dispose()
+        {
+            Dispose( true );
+            GC.SuppressFinalize( this );
+        }
+        protected virtual void Dispose( bool disposing )
         {
             if ( State == TransactionState.Opened )
                 Rollback();
